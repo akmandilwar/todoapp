@@ -2,11 +2,12 @@
 <div>
     <div class="user1">List</div>
     <div class="" v-for="user in list" :key="user.id">
-        <div class="user" v-on:click="click(user.id)">{{user.name}}<br/></div>
+        <div v-if="user.id!== index" class="user" v-on:click="click(user.id)">{{user.name}}<br/></div>
+        <div v-if="user.id=== index" class="user2" v-on:click="click(user.id)">{{user.name}}<br/></div>
     </div>
     <div v-if="show">
         <div class="list-group2">
-             <input class='form-control'  type="text"  v-model="name"/>
+             <input class='form-control'  type="text"  v-on:keyup.enter="handlename"  v-model="name" />
              <button class="btn1" v-on:click="handlename">Submit</button>
         </div>
     </div>
@@ -17,12 +18,60 @@
     </div>
 </div>
 </template>
+<script>
+export default {
+    name:"LeftPanel",
+    computed:{
+        list(){
+            return this.$store.state.users;
+        },
+        index(){
+               return this.$store.state.selectedIndex;
+        },
+        show(){
+               return this.$store.state.show;
+        },
+      
+    },data(){
+          return{       
+            name:""
+    }
+    }
+    ,
+    methods:{
+       click(temp){ 
+            let index=this.list.findIndex(n=>n.id===temp);
+             if(index!==true){
+       this.$store.state.SelectedElement=this.$store.state.users[index];
+        this.$store.state.showtextfield=true;
+       this.$store.state.selectedIndex=index;       
+       console.log(this.$store.state.showtextfield);
+        }
+        },
+        handleclick(){
+            if(!this.$store.state.show) {
+              this.$store.state.show=!this.$store.state.show;
+            }
+        },
+        handlename(){           
+            if(this.name!==""){
+                  let x={id:this.list.length,name:this.name,task:[],totalTask:0,pendingTask:0,completedTask:0};
+          this.$store.state.users.push(x);
+                 this.name="";
+                 this.$store.state.show=false;
+            } 
+            if(this.$store.state.name==="") this.$store.state.show=false;
+        }
+    }, 
+}
+</script>
+
 <style  scoped>
 
 .btnList {
         border-radius: px;
     width: 100%;
-    background-color: black;
+    background-color: rgb(97, 77, 226);
     margin-top: 10px;
     color: white;
     cursor: pointer;
@@ -45,6 +94,14 @@
      margin-top: 1px;
      width:150px;
      background-color: antiquewhite;
+    cursor: pointer;
+    text-align: center;
+ }
+ .user2{
+     border:1px solid white;
+     margin-top: 1px;
+     width:150px;
+     background-color: aquamarine;
     cursor: pointer;
     text-align: center;
  }
@@ -80,40 +137,3 @@
      background-color: rgb(245, 151, 151);
  }
 </style>
-<script>
-export default {
-    name:"LeftPanel",
-    props:['list'],
-    data(){
-        return{
-            show:false,
-            name:""
-        }
-    },
-    methods:{
-        click(temp){
-            console.log(this.list);
-            let index=this.list.findIndex(n=>n.id===temp);
-            this.selectedindex=index;
-            
-       this.$emit('index',index);
-        
-            console.log(this.selectedindex,index);
-        },
-        handleclick(){
-            if(!this.show) {
-              this.show=!this.show;
-              console.log(this.show);
-            }
-        },
-        handlename(){           
-            if(this.name!==""){
-                 this.$emit('newname',this.name);      
-                 this.name="";
-                 this.show=false;
-            } 
-            if(this.name==="") this.show=false;
-        }
-    }, 
-}
-</script>

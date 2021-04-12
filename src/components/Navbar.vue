@@ -13,9 +13,10 @@
    .Nav{
        
        height:auto;
+   
    }
    .Nav1{
-    max-width: 1000px;
+   
     background: #62d7db;
     padding: 10px;
     text-align: center;

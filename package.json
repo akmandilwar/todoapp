@@ -7,10 +7,12 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": "main.js",
   "dependencies": {
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "vue": "^3.0.11",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -39,5 +41,16 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "## Project setup ``` npm install ```",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivamakash/Todo-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivamakash/Todo-App/issues"
+  },
+  "homepage": "https://github.com/shivamakash/Todo-App#readme"
 }
